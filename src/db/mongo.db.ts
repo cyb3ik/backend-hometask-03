@@ -8,11 +8,12 @@ export let blogsCollection: Collection<Blog>
 
 const POSTS_COLLECTION_NAME = 'posts'
 const BLOGS_COLLECTION_NAME = 'blogs'
+const DB_NAME = 'bloggers-platform'
  
 export async function runDB(url: string): Promise<void> {
 
     client = new MongoClient(url)
-    const db: Db = client.db(process.env.DB_NAME || 'bloggers-platform')
+    const db: Db = client.db(process.env.DB_NAME || DB_NAME)
     
     postsCollection = db.collection<Post>(POSTS_COLLECTION_NAME)
     blogsCollection = db.collection<Blog>(BLOGS_COLLECTION_NAME)
@@ -20,7 +21,7 @@ export async function runDB(url: string): Promise<void> {
     try {
         await client.connect()
         await db.command({ ping: 1 })
-        console.log('Connected to the database')
+        console.log('Connected to database')
     } 
     catch (e) {
         await client.close()
