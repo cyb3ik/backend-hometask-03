@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
 import { HTTPStatusCode } from '../utils/statusCodes'
-import { ADMIN_PASSWORD, ADMIN_USERNAME } from '../utils/config'
+import * as dotenv from 'dotenv'
 
-const adminUserName = process.env.ADMIN_USERNAME || ADMIN_USERNAME
-const adminPass = process.env.ADMIN_PASSWORD || ADMIN_PASSWORD
+const adminUserName = process.env.ADMIN_USERNAME
+const adminPass = process.env.ADMIN_PASSWORD
  
 export const authGuardMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const auth = req.headers['authorization'] as string
